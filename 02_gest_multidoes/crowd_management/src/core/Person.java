@@ -10,9 +10,9 @@ package core;
  * @author EFA
  */
 public class Person {
-    private int nif;
-    private String name;
-    private String address;
+    private int nif=0;
+    private String name="";
+    private String address="";
 
     /**
      *
