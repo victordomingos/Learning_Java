@@ -21,14 +21,32 @@ public class TestPerson {
         p1.setNif(123456789);
         p1.setName("dominikos");
         p1.setAddress("Nice street");
-        p1.setPhone("+123456789");
-        p1.setEmail("abcd@efghij.kl");
+        //p1.setEmail("efghij.jp");        
+        
+        try {
+            p1.setEmail("i@efghij.jp");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        p1.setPhone("123456789");
+        
         
         p2.setNif(123456789);
         p2.setName("dominikos");
         p2.setAddress("Nice street");
-        p2.setPhone("+123456789");
-        p2.setEmail("abcd@efghij.kl");
+        try {
+            p2.setPhone("+123456789"); 
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        try {
+            p2.setEmail("abcdefghij.kl");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        
         
         p3 = p1;
         

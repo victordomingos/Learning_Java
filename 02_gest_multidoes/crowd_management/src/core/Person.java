@@ -50,13 +50,15 @@ public class Person {
     public void setPhone(String phone) {
         String prefix = String.valueOf(phone.charAt(0));
         
+        //   a) começar por '+' e ter 13c
+        //ou b) começar por algarismo e ter 9c
         if (("+".equals(prefix) && phone.length()==13) ||
             (Character.isDigit(prefix.charAt(0)) && phone.length()==9)) {
             this.phone = phone;    
         }
         else
         {
-            // erro
+             throw new IllegalArgumentException("Telefone inválido! ---> " + phone);
         }
     }
     
@@ -66,19 +68,23 @@ public class Person {
     }
 
     public void setEmail(String email) {
-        int at_position = email.indexOf('@');
-        int last_at_position = email.lastIndexOf('@');
+        int at_pos = email.indexOf('@');
+        int last_at_pos = email.lastIndexOf('@');
+        int dot_pos = email.lastIndexOf('.');
         
-        int dot_position = email.lastIndexOf('.');
-        
-        if (at_position != -1  &&  dot_position != -1 && 
-              at_position == last_at_position &&
-              last_at_position < dot_position &&
-              dot_position < email.length()-2) {
+        // 1 e apenas 1 @
+        // @ em posicao > 0 (pelo menos 1 caractere antes da @)
+        // 1 . depois da @ e antes do TLD (p/ menos 1 caractere no TLD)
+        if (at_pos > 0  &&  dot_pos != -1 && 
+              at_pos == last_at_pos && last_at_pos < dot_pos-1 &&
+              dot_pos < email.length()-1) {
             this.email = email;
         } else {
-            // erro.
+            throw new IllegalArgumentException("Email inválido! ---> " + email);
         }
+        
+        
+        
         
     }
     
