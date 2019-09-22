@@ -6,7 +6,6 @@
 package tests;
 
 import core.Person;
-import java.util.HashSet;
 
 /**
  *
@@ -16,8 +15,7 @@ public class TestPerson {
     public static void main(String[] args) {
         Person p1 = new Person();
         Person p2 = new Person();
-        Person p3 = new Person();
-        
+                        
         p1.setNif(123456789);
         p1.setName("dominikos");
         p1.setAddress("Nice street");
@@ -48,7 +46,7 @@ public class TestPerson {
         }
         
         
-        p3 = p1;
+        Person p3 = p1;
         
         System.out.println(p1);
         System.out.println(p2);
