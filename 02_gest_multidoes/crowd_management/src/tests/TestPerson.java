@@ -14,13 +14,13 @@ import java.util.HashSet;
  */
 public class TestPerson {
     public static void main(String[] args) {
-        Person p1 = new Person();
-        Person p2 = new Person();
-        Person p3 = new Person();
+        Person p1 = new Person(223456789, "joseph");
+        Person p2 = new Person(987654321, "mickael", "Left Street", "123123123", "abcd@abcd.abcd");
+        Person p3;
         
-        p1.setNif(123456789);
-        p1.setName("dominikos");
-        p1.setAddress("Nice street");
+        //p1.setNif(123456789);
+        //p1.setName("dominikos");
+        //p1.setAddress("Nice street");
         //p1.setEmail("efghij.jp");        
         
         try {

@@ -18,7 +18,22 @@ public class Person {
     private String phone = "";
     private String email = "";
 
+    
+    public Person(int nif, String name){
+        this.nif = nif;
+        this.name = name;
+    }
 
+    public Person(int nif, String name, String address, String phone, String email){
+        this.nif = nif;
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+    }    
+
+    
+    
     public int getNif() {
         return nif;
     }
@@ -61,7 +76,7 @@ public class Person {
              throw new IllegalArgumentException("Telefone inválido! ---> " + phone);
         }
     }
-    
+     
     
     public String getEmail() {
         return email;

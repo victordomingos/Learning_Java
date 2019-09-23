@@ -44,7 +44,7 @@ public class ContactsCollection {
         this.people.add(p);
     }
     
-    public bool removePerson(String name){
+    public boolean removePerson(String name){
         for (int i = 0; i < this.people.size(); i++) {
             if (people.get(i).equals(name)){
                 people.remove(i);
