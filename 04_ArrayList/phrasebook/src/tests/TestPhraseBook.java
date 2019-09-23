@@ -43,10 +43,11 @@ public class TestPhraseBook {
         }
         
         
-
+        System.out.println(phb);
         System.out.println("MIN: " + min_len);
         System.out.println("MAX: " + max_len);      
-        System.out.println(phb);
+        System.out.println("Sorted:");
+        System.out.println(phb.getPhrases());
         
         
     }
