@@ -1,3 +1,5 @@
+package lib;
+
 /*
  * Gary Cornell and Cay S. Horstmann, Core Java (Book/CD-ROM)
  * Published By SunSoft Press/Prentice-Hall
