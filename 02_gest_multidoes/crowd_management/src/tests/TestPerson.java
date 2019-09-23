@@ -13,22 +13,12 @@ import core.Person;
  */
 public class TestPerson {
     public static void main(String[] args) {
-<<<<<<< HEAD
         Person p1 = new Person(223456789, "joseph");
         Person p2 = new Person(987654321, "mickael", "Left Street", "123123123", "abcd@abcd.abcd");
-        Person p3;
         
         //p1.setNif(123456789);
         //p1.setName("dominikos");
         //p1.setAddress("Nice street");
-=======
-        Person p1 = new Person();
-        Person p2 = new Person();
-                        
-        p1.setNif(123456789);
-        p1.setName("dominikos");
-        p1.setAddress("Nice street");
->>>>>>> 436eeb58d8179af3295ef03badc58f3f81db3e35
         //p1.setEmail("efghij.jp");        
         
         try {
