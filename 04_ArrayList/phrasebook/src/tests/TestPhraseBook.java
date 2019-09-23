@@ -55,10 +55,12 @@ public class TestPhraseBook {
 
         
         
-        for (String phrase : phb.getSortedPhrases(-1)) {
+        for (String phrase : phb.getSortedPhrases()) {
             len = phrase.length();
             System.out.println(Integer.toString(len) + " " + phrase);
         }
         
+        System.out.println("Longest: " +  phb.getLongest());
+        System.out.println("Shortest: " +  phb.getShortest());
     }
 }

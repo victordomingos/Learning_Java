@@ -41,19 +41,27 @@ public class PhraseBook {
     }
     
     public ArrayList<String> getSortedPhrases(){
-        return this.getSortedPhrases(1);
+        return this.getSortedPhrases(true);
     }
             
-    public ArrayList<String> getSortedPhrases(int ascending_order) {
+    public ArrayList<String> getSortedPhrases(boolean ascending_order) {
         ArrayList frases = this.getPhrases();
         
-        Collections.sort(frases, new Comparator<String>() {
-                @Override
-                public int compare(String s1, String s2) {
-                        return ascending_order * Integer.compare(s1.length(), s2.length());
-                    }
-            }
-        );
+        Collections.sort(frases, Comparator.comparing(String::length));
+        
+        if (!ascending_order){
+            Collections.reverse(frases);
+        }
+        
         return frases;
     }
+    
+    public String getLongest() {
+        return Collections.max(this.phrases, Comparator.comparing(String::length));
+    }
+    
+    public String getShortest() {
+        return Collections.min(this.phrases, Comparator.comparing(String::length));
+    }
+   
 }
