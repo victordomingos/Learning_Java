@@ -6,6 +6,7 @@
 package tests;
 
 import core.Person;
+import lib.Console;
 
 /**
  *
@@ -52,6 +53,14 @@ public class TestPerson {
         System.out.println(p2);
         System.out.println(p1==p2);
         System.out.println(p1==p3); 
+        
+        
+        //=======================================
+        
+        int nif2 = Console.readInt("Please enter your NIF:");
+        String name2 = Console.readString("Please enter your name:");
+        Person p4 = new Person(nif2, name2);
+        System.out.println(p4);
     }
     
 }
