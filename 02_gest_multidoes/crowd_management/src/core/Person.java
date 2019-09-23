@@ -13,20 +13,25 @@ import java.util.Objects;
  */
 public class Person {
     private int nif = 0;
-    private String name = "";
-    private String address = "";
-    private String phone = "";
-    private String email = "";
+    private String name;
+    private String address;
+    private String phone;
+    private String email;
 
     
     public Person(int nif, String name){
         this.nif = nif;
         this.name = name;
+        this.address = "";
+        this.phone = "";
+        this.email = "";
     }
 
     public Person(int nif, String name, String address, String phone, String email){
         this.nif = nif;
         this.name = name;
+        //// the 2 lines above may be replaced by:
+        // this(nif, name);
         this.address = address;
         this.phone = phone;
         this.email = email;
