@@ -6,6 +6,8 @@
 package core;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  *
@@ -38,4 +40,20 @@ public class PhraseBook {
         return "PhraseBook{" + "phrases=" + phrases + '}';
     }
     
+    public ArrayList<String> getSortedPhrases(){
+        return this.getSortedPhrases(1);
+    }
+            
+    public ArrayList<String> getSortedPhrases(int ascending_order) {
+        ArrayList frases = this.getPhrases();
+        
+        Collections.sort(frases, new Comparator<String>() {
+                @Override
+                public int compare(String s1, String s2) {
+                        return ascending_order * Integer.compare(s1.length(), s2.length());
+                    }
+            }
+        );
+        return frases;
+    }
 }

@@ -6,6 +6,9 @@
 package tests;
 
 import core.PhraseBook;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 /**
  *
  * @author EFA
@@ -47,8 +50,15 @@ public class TestPhraseBook {
         System.out.println("MIN: " + min_len);
         System.out.println("MAX: " + max_len);      
         System.out.println("Sorted:");
-        System.out.println(phb.getPhrases());
+
         
+
+        
+        
+        for (String phrase : phb.getSortedPhrases(-1)) {
+            len = phrase.length();
+            System.out.println(Integer.toString(len) + " " + phrase);
+        }
         
     }
 }
