@@ -101,11 +101,7 @@ public class Person {
             this.email = email;
         } else {
             throw new IllegalArgumentException("Email inválido! ---> " + email);
-        }
-        
-        
-        
-        
+        }  
     }
     
     
