@@ -6,6 +6,7 @@
 package tests;
 
 import core.Person;
+import exceptions.InvalidPhoneNumberException;
 import lib.Console;
 
 /**
@@ -13,7 +14,7 @@ import lib.Console;
  * @author EFA
  */
 public class TestPerson {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidPhoneNumberException {
         Person p1 = new Person(223456789, "joseph");
         Person p2 = new Person(987654321, "mickael", "Left Street", "123123123", "abcd@abcd.abcd");
         
@@ -28,7 +29,11 @@ public class TestPerson {
             System.out.println(e.getMessage());
         }
         
-        p1.setPhone("123456789");
+        try {
+            p1.setPhone("123456789");
+        } catch (InvalidPhoneNumberException ex) {
+            System.out.println(ex.getMessage());
+        }
         
         
         p2.setNif(123456789);
