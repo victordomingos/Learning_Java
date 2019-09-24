@@ -5,6 +5,7 @@
  */
 package core;
 
+import exceptions.InvalidPhoneNumberException;
 import java.util.Objects;
 
 /**
@@ -67,19 +68,23 @@ public class Person {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(String phone) throws InvalidPhoneNumberException  {
         String prefix = String.valueOf(phone.charAt(0));
         
         //   a) começar por '+' e ter 13c
         //ou b) começar por algarismo e ter 9c
-        if (("+".equals(prefix) && phone.length()==13) ||
-            (Character.isDigit(prefix.charAt(0)) && phone.length()==9)) {
-            this.phone = phone;    
-        }
-        else
+        if ("+".equals(prefix) && phone.length()==13)
         {
-             throw new IllegalArgumentException("Telefone inválido! ---> " + phone);
+            this.phone = phone;    
+        } else {
+            if (Character.isDigit(prefix.charAt(0)) && phone.length()==9) {
+                this.phone = phone;    
+            } else {
+                throw new InvalidPhoneNumberException("Telefone inválido! ---> " + phone);
+            }
         }
+        
+        // TODO - WIP
     }
      
     

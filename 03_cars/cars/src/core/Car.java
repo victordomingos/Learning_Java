@@ -5,6 +5,8 @@
  */
 package core;
 
+import exceptions.InvalidLicensePlateException;
+
 /**
  *
  * @author EFA
@@ -15,20 +17,20 @@ public class Car {
     private String modelo;
     private int n_portas;
 
-    public Car(String matricula, String marca) {
+    public Car(String matricula, String marca) throws InvalidLicensePlateException {
         this.setMatricula(matricula);
         this.marca = marca;
         this.modelo = "Undefined model";
         this.n_portas = 5;
     }
      
-    public Car(String matricula, String marca, String modelo) {
+    public Car(String matricula, String marca, String modelo) throws InvalidLicensePlateException {
         this(matricula, marca);
         this.modelo = modelo;
         this.n_portas = 5;
     }
     
-    public Car(String matricula, String marca, String modelo, int n_portas) {
+    public Car(String matricula, String marca, String modelo, int n_portas) throws InvalidLicensePlateException {
         this(matricula, marca, modelo);
         this.n_portas = n_portas;
     }
@@ -51,9 +53,11 @@ public class Car {
         return matricula;
     }
 
-    public final void setMatricula(String matricula) {
+    public final void setMatricula(String matricula) throws InvalidLicensePlateException {
         if (matricula.length() == 8) {
             this.matricula = matricula;
+        } else {
+            throw new InvalidLicensePlateException("Invalid License Plate! (" + matricula +")");
         }
 
     }
