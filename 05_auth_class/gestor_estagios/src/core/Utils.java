@@ -10,7 +10,7 @@ package core;
  * 
  * @author victor
  */
-public class utils {
+public class Utils {
     public static String gerarSenhaAleatoria(){
         return "SenhaAleatóriaUltra-Segura12334#$%";
     }

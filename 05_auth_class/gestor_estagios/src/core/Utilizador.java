@@ -1,5 +1,6 @@
 package core;
 
+import db.MyDb;
 import exception.InvalidUserTypeException;
 import exception.InvalidEmailException;
 import exception.InvalidPasswordException;
@@ -22,7 +23,7 @@ public class Utilizador {  //TO-DO: make this abstract?
     private String email;
     private String tipoUtilizador;
     private int estado;
-    private static final db db = new db();
+    private static final MyDb db = new MyDb();
     private static final Set<String> tipos_de_utilizador = new HashSet<String>(
             Arrays.asList(new String[]{"formando", "administrador",
         "coordenador", "responsavelEntidade"}));
@@ -79,10 +80,10 @@ public class Utilizador {  //TO-DO: make this abstract?
             
 
             // se dados forem validos, gerar senha aleatoria,
-            String password = utils.gerarSenhaAleatoria();
+            String password = Utils.gerarSenhaAleatoria();
             
             // calcular hash da senha e 
-            String hashSenha = utils.calcularHashSenha(senha);
+            String hashSenha = Utils.calcularHashSenha(senha);
             int status = 0;
             // chamar o metodo correspondente da base de dados para inserir 
             // novo registo

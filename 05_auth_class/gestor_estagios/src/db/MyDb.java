@@ -3,14 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package core;
+package db;
+
+import core.Utilizador;
 
 /**
  * Placeholder for class to be implemented.
  * 
  * @author victor
  */
-public class db {
+public class MyDb {
     
     /***
      * Verifica se há correspondência da senha com o hash guardado na base de 
