@@ -1,13 +1,16 @@
 package core;
 
+import db.MyDb;
 import exception.InvalidUserTypeException;
 import exception.InvalidEmailException;
 import exception.InvalidPasswordException;
 import exception.InvalidUserNameException;
 import java.util.Objects;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+
+import static core.Utils.ADMINISTRADOR;
+import static core.Utils.COORDENADOR;
+import static core.Utils.FORMANDO;
+import static core.Utils.RESP_ENTIDADE;
 
 /**
  *
@@ -22,10 +25,7 @@ public class Utilizador {  //TO-DO: make this abstract?
     private String email;
     private String tipoUtilizador;
     private int estado;
-    private static final db db = new db();
-    private static final Set<String> tipos_de_utilizador = new HashSet<String>(
-            Arrays.asList(new String[]{"formando", "administrador",
-        "coordenador", "responsavelEntidade"}));
+    private static final MyDb db = new MyDb();
 
     public Utilizador() {
         id = -1;
@@ -38,7 +38,7 @@ public class Utilizador {  //TO-DO: make this abstract?
     }
 
     /**
-     * Tenta registar um utilizador. Caso nome já exista na base de dados,
+     * Tenta registar um novo utilizador. Caso nome já exista na base de dados,
      * devolve uma string com uma sugestão de um nome alternativo. Caso não
      * exista e a criação do registo seja bem sucedida, devolve o mesmo nome de
      * utilizador. Caso falhe a inserção do registo, devolve string vazia.
@@ -48,46 +48,56 @@ public class Utilizador {  //TO-DO: make this abstract?
      * @param email
      * @param tipo
      * @return
-     * @throws exceptions.InvalidUserTypeException
+     * @throws exception.InvalidUserTypeException
+     * @throws exception.InvalidPasswordException
+     * @throws exception.InvalidUserNameException
+     * @throws exception.InvalidEmailException
      */
     public static String registarUtilizador(String username, String senha,
-            String email, String tipo) throws InvalidUserTypeException, 
-            InvalidPasswordException, InvalidUserNameException, 
+            String email, String tipo) throws InvalidUserTypeException,
+            InvalidPasswordException, InvalidUserNameException,
             InvalidEmailException {
-        
+
         System.out.println("\nA registar " + tipo + " (" + username + ", "
                 + senha + ", " + email + ")\n");
         // conforme o tipo de utilizador:
         // verificar se já existe utilizador com esse nome
         // se já existir, sugerir um nome parecido que ainda não exista (com algarismos)
-        if (db.existeUtilizador(username)) {
+        if (MyDb.existeUtilizador(username)) {
             String sugestao = username;
-            for (int n = 1; db.existeUtilizador(sugestao); n++) {
+            for (int n = 1; MyDb.existeUtilizador(sugestao); n++) {
                 sugestao = username + Integer.toString(n);
             }
             return sugestao;
         } else {
             // verificar se dados sao válidos
-            // verificar formato do nome de utilizador
-            // verificar formato da senha
-            // verificar formato do email
 
-            if (!tipos_de_utilizador.contains(tipo)) {
+            if (!Utils.TIPOS_DE_UTILIZADOR.contains(tipo)) {
                 throw new InvalidUserTypeException(tipo);
             }
-            
-            
+
+            if (!Utils.isPasswordFormatValid(senha)) {
+                throw new InvalidPasswordException(tipo);
+            }
+
+            if (!Utils.isUserNameFormatValid(senha)) {
+                throw new InvalidUserNameException(tipo);
+            }
+
+            if (!Utils.isUserEmailFormatValid(senha)) {
+                throw new InvalidEmailException(tipo);
+            }
 
             // se dados forem validos, gerar senha aleatoria,
-            String password = utils.gerarSenhaAleatoria();
-            
+            String password = Utils.gerarSenhaAleatoria();
+
             // calcular hash da senha e 
-            String hashSenha = utils.calcularHashSenha(senha);
+            String hashSenha = Utils.calcularHashSenha(password);
             int status = 0;
             // chamar o metodo correspondente da base de dados para inserir 
             // novo registo
             try {
-                if (db.saveUtilizador(username, hashSenha, email, tipo) != -1) {
+                if (MyDb.saveUtilizador(username, hashSenha, email, tipo) != -1) {
                     status = 1;
                 }
             } catch (Exception e) {
@@ -97,6 +107,7 @@ public class Utilizador {  //TO-DO: make this abstract?
             if (status == 1) {
                 // enviar email ao utilizador com username e senha temporária
                 // e instrucoes para redefinir senha.
+                sendUserRegistrationEmail(username, email, password);
                 return username;
             } else {
                 return "";
@@ -114,7 +125,7 @@ public class Utilizador {  //TO-DO: make this abstract?
      */
     public static Utilizador verificarUtilizadorSenha(String utilizador, String senha) {
         // passa a batata a um método a implementar pela equipa de bases de dados:
-        return db.verificarHashSenha(utilizador, senha);
+        return MyDb.verificarHashSenha(utilizador, senha);
     }
 
     public int getId() {
@@ -171,6 +182,36 @@ public class Utilizador {  //TO-DO: make this abstract?
         this.estado = estado;
     }
 
+    /**
+     * *
+     * Obtém o nome da pasta correspondente ao tipo de utilizador indicado
+     *
+     * @param tipoUtilizador - tipo de utilizador
+     * @return pasta - nome da pasta
+     */
+    public static String getPastaTipoUtilizador(String tipoUtilizador) {
+        String pasta;
+
+        switch (tipoUtilizador) {
+            case ADMINISTRADOR:
+                pasta = Utils.PASTA_ADMIN;
+                break;
+            case COORDENADOR:
+                pasta = Utils.PASTA_COORDENADOR;
+                break;
+            case FORMANDO:
+                pasta = Utils.PASTA_FORMANDO;
+                break;
+            case RESP_ENTIDADE:
+                pasta = Utils.PASTA_ADMIN;
+                break;
+            default:
+                pasta = "";
+                break;
+        }
+        return pasta;
+    }
+
     @Override
     public String toString() {
         return "Utilizador{" + "id=" + id + ", utilizador=" + utilizador + ", nome=" + nome + ", email=" + email + ", tipoUtilizador=" + tipoUtilizador + ", estado=" + estado + '}';
@@ -204,5 +245,9 @@ public class Utilizador {  //TO-DO: make this abstract?
             return false;
         }
         return Objects.equals(this.tipoUtilizador, other.tipoUtilizador);
+    }
+
+    private static void sendUserRegistrationEmail(String password, String password1, String password2) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
