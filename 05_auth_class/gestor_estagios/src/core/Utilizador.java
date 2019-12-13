@@ -26,6 +26,12 @@ public class Utilizador {  //TO-DO: make this abstract?
     private String tipoUtilizador;
     private int estado;
     private static final MyDb db = new MyDb();
+<<<<<<< HEAD
+=======
+    private static final Set<String> tipos_de_utilizador = new HashSet<String>(
+            Arrays.asList(new String[]{"formando", "administrador",
+        "coordenador", "responsavelEntidade"}));
+>>>>>>> 103eccbd3f50ddd16291805997a5d0371e346210
 
     public Utilizador() {
         id = -1;
@@ -90,9 +96,15 @@ public class Utilizador {  //TO-DO: make this abstract?
 
             // se dados forem validos, gerar senha aleatoria,
             String password = Utils.gerarSenhaAleatoria();
+<<<<<<< HEAD
 
             // calcular hash da senha e 
             String hashSenha = Utils.calcularHashSenha(password);
+=======
+            
+            // calcular hash da senha e 
+            String hashSenha = Utils.calcularHashSenha(senha);
+>>>>>>> 103eccbd3f50ddd16291805997a5d0371e346210
             int status = 0;
             // chamar o metodo correspondente da base de dados para inserir 
             // novo registo
