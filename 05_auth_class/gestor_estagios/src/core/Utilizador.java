@@ -1,6 +1,5 @@
 package core;
 
-import db.MyDb;
 import java.util.Objects;
 
 import static core.Utils.ADMINISTRADOR;
