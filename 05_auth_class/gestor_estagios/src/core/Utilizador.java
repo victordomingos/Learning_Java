@@ -1,10 +1,6 @@
 package core;
 
 import db.MyDb;
-import exception.InvalidUserTypeException;
-import exception.InvalidEmailException;
-import exception.InvalidPasswordException;
-import exception.InvalidUserNameException;
 import java.util.Objects;
 
 import static core.Utils.ADMINISTRADOR;
@@ -25,13 +21,6 @@ public class Utilizador {  //TO-DO: make this abstract?
     private String email;
     private String tipoUtilizador;
     private int estado;
-    private static final MyDb db = new MyDb();
-<<<<<<< HEAD
-=======
-    private static final Set<String> tipos_de_utilizador = new HashSet<String>(
-            Arrays.asList(new String[]{"formando", "administrador",
-        "coordenador", "responsavelEntidade"}));
->>>>>>> 103eccbd3f50ddd16291805997a5d0371e346210
 
     public Utilizador() {
         id = -1;
@@ -41,103 +30,6 @@ public class Utilizador {  //TO-DO: make this abstract?
         email = "";
         tipoUtilizador = "";
         estado = -1;
-    }
-
-    /**
-     * Tenta registar um novo utilizador. Caso nome já exista na base de dados,
-     * devolve uma string com uma sugestão de um nome alternativo. Caso não
-     * exista e a criação do registo seja bem sucedida, devolve o mesmo nome de
-     * utilizador. Caso falhe a inserção do registo, devolve string vazia.
-     *
-     * @param username
-     * @param senha
-     * @param email
-     * @param tipo
-     * @return
-     * @throws exception.InvalidUserTypeException
-     * @throws exception.InvalidPasswordException
-     * @throws exception.InvalidUserNameException
-     * @throws exception.InvalidEmailException
-     */
-    public static String registarUtilizador(String username, String senha,
-            String email, String tipo) throws InvalidUserTypeException,
-            InvalidPasswordException, InvalidUserNameException,
-            InvalidEmailException {
-
-        System.out.println("\nA registar " + tipo + " (" + username + ", "
-                + senha + ", " + email + ")\n");
-        // conforme o tipo de utilizador:
-        // verificar se já existe utilizador com esse nome
-        // se já existir, sugerir um nome parecido que ainda não exista (com algarismos)
-        if (MyDb.existeUtilizador(username)) {
-            String sugestao = username;
-            for (int n = 1; MyDb.existeUtilizador(sugestao); n++) {
-                sugestao = username + Integer.toString(n);
-            }
-            return sugestao;
-        } else {
-            // verificar se dados sao válidos
-
-            if (!Utils.TIPOS_DE_UTILIZADOR.contains(tipo)) {
-                throw new InvalidUserTypeException(tipo);
-            }
-
-            if (!Utils.isPasswordFormatValid(senha)) {
-                throw new InvalidPasswordException(tipo);
-            }
-
-            if (!Utils.isUserNameFormatValid(senha)) {
-                throw new InvalidUserNameException(tipo);
-            }
-
-            if (!Utils.isUserEmailFormatValid(senha)) {
-                throw new InvalidEmailException(tipo);
-            }
-
-            // se dados forem validos, gerar senha aleatoria,
-            String password = Utils.gerarSenhaAleatoria();
-<<<<<<< HEAD
-
-            // calcular hash da senha e 
-            String hashSenha = Utils.calcularHashSenha(password);
-=======
-            
-            // calcular hash da senha e 
-            String hashSenha = Utils.calcularHashSenha(senha);
->>>>>>> 103eccbd3f50ddd16291805997a5d0371e346210
-            int status = 0;
-            // chamar o metodo correspondente da base de dados para inserir 
-            // novo registo
-            try {
-                if (MyDb.saveUtilizador(username, hashSenha, email, tipo) != -1) {
-                    status = 1;
-                }
-            } catch (Exception e) {
-                return "";
-            }
-
-            if (status == 1) {
-                // enviar email ao utilizador com username e senha temporária
-                // e instrucoes para redefinir senha.
-                sendUserRegistrationEmail(username, email, password);
-                return username;
-            } else {
-                return "";
-            }
-        }
-    }
-
-    /**
-     * Verifica se conjunto utilizador/senha são válidos e devolve um objeto do
-     * tipo correspondente caso os dados não correspondam, devolve null
-     *
-     * @param utilizador
-     * @param senha
-     * @return
-     */
-    public static Utilizador verificarUtilizadorSenha(String utilizador, String senha) {
-        // passa a batata a um método a implementar pela equipa de bases de dados:
-        return MyDb.verificarHashSenha(utilizador, senha);
     }
 
     public int getId() {
@@ -257,9 +149,5 @@ public class Utilizador {  //TO-DO: make this abstract?
             return false;
         }
         return Objects.equals(this.tipoUtilizador, other.tipoUtilizador);
-    }
-
-    private static void sendUserRegistrationEmail(String password, String password1, String password2) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
